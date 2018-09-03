@@ -1,0 +1,336 @@
+<!--wxml-->
+<audio src="{{voiceSrc}}" id="voice"  loop="{{lock}}" ></audio>
+
+ 
+<!--相机显示面板-->
+    <view class="viewPlay">
+        <image class="preview_show" src="{{preview}}" mode="aspectFill" bindtap="merge">
+        </image>
+          <!-- <camera flash="off" binderror="error" device-position="back" class="camera" >
+        </camera> -->
+  <!--相机设置参数面板-->
+        <view class='infoBar'>
+          <text class='infoText'>current frame: <text class='infoValue'>{{info.currentFrame}}</text></text>
+          <text class='infoText'>current time:           <text class='infoValue'>{{info.currentTime}}</text>s</text>
+
+          <text class='infoText'>@<text class='infoValue'>{{info.fps}}</text>fps</text>
+        </view>
+        <view class='otherPanel'>
+          <view class="insertCamera"></view>
+          <view class='help'></view>
+        </view>
+    </view>
+
+
+<!--帧队列面板-->
+      <scroll-view scroll-y="true" class="queueImg">
+        <!-- <view wx:for="{{array}}" wx:key="item">
+            <image class="{{currId==item.id?'frameSelected':'frame'}}" id="{{item.id}}" src="{{item.path}}" bindtap="frameEvent" data-path="{{item.path}}" data-selected="{{item.lock}}">
+            </image>
+        </view> -->
+        <view>
+            <image class="frame"src="">
+            </image>
+        </view>
+      </scroll-view>
+
+<!--删除复制帧面板-->
+<view class="controlFrameBar">
+  <view class="btnCopy"></view>
+  <view class="btnDelete"></view>
+</view>
+
+
+<!--项目设置面板-->
+<view class="optionBar {{panelLock.setOptionLock?'':'isNotDisplay'}}">
+  <image class="optionBarIcon setOptionBar"></image>
+  <text class="optionBarInfo">项目设置 PROJECT SETTING</text>
+  
+<view class='optionInnerbar' >
+
+  <view class='optionInnerTool optionInnerToolFps'>
+    <image class="optionBarInnerIcon setOptionFps"></image>
+    <text>帧率fps:</text>
+    <input type='number' maxlength="2"></input>
+  </view>
+
+
+  <view class='optionInnerTool optionInnerToolTitle'>
+    <image class="optionBarInnerIcon setOptionTitle"></image>
+    <text>片名title:</text>
+    <input type='text'></input>
+  </view>
+
+  <view class='optionInnerTool optionInnerToolAuthor'>
+    <image class="optionBarInnerIcon setOptionAuthor"></image>
+    <text>导演author:</text>
+    <input type='text'></input>
+  </view>
+  
+  <view class='optionInnerTool optionInnerToolSwitchCamera'>
+    <view class="optionBarInnerIcon setOptionSwitchCamera"></view> 
+    <text class="setOptionSwitchCameraChineseText">切换相机</text>
+        <text class="setOptionSwitchCameraEnglishText">SwitchCamera</text>
+  </view>
+
+ </view>
+</view>
+
+
+<!--延时摄影面板-->
+<view class="optionBar {{panelLock.TimeLapseOptionLock?'':'isNotDisplay'}}">
+
+  <image class="optionBarIcon TimeLapseBar"></image>
+  <text class="optionBarInfo">延时摄影 TIME LAPSE SETTING</text>
+
+<view class='optionInnerbar' >
+
+  <view class='optionInnerTool optionInnerToolTimeLapse'>
+    <image class="optionBarInnerIcon TimeLapseTimeSpace"></image>
+    <input type='number' maxlength='4'></input>
+  </view>
+
+  <view class='optionInnerTool optionInnerToolTerminalTime'>
+    <image class="optionBarInnerIcon TimeLapseTerminalTime"></image>
+    <input type='number' maxlength='4'></input>
+  </view>
+
+  <view class='optionInnerTool optionInnerToolStart'>
+    <view class="optionBarInnerIcon TimeLapseStart"></view>
+    <text class='TimeLapseStartChinese'>开始</text>
+    <text class='TimeLapseStartEnglish'>START</text>
+  </view>
+
+    </view>
+
+</view>
+
+<!--声音设置面板-->
+<view class="optionBar {{panelLock.VoiceOptionLock?'':'isNotDisplay'}}">
+  <image class="optionBarIcon VoiceOptionBar"></image>
+  <text class="optionBarInfo">声音设置 SOUND SETTING</text>
+
+<view class='optionInnerbar' >
+
+    <view class='optionInnerTool optionInnerToolVoiceName'>
+
+  <text>音轨名 name: </text>
+  <text>1.mp3</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolVoiceLength'>
+
+  <text>长度 length: </text>
+  <text>50s</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolSetVoice'>
+  <view class='fromPanel'>
+      <text>从from: </text><input type='number' value='88' class='SetVoiceFrom'></input>
+  </view>
+  <view class='toPanel'>
+        <text>到 to:</text><input type='number' value='98' class='SetVoiceTo'></input>
+  </view>
+  </view>
+
+  <view class='optionInnerTool optionInnerToolRecord'>
+  <view class='optionBarInnerIcon recordBtnStart'></view>
+  <text id='recordBtnStartChinese'>录音</text>
+  <text id='recordBtnStartEnglish'>RECORD</text>
+  </view>
+
+  <view class='optionInnerTool optionInnerToolRecord  isNotDisplay'>
+  <view class='optionBarInnerIcon recordBtnStop'></view>
+  <text id='recordBtnStopChinese'>停止</text>
+  <text id='recordBtnStopEnglish'>Stop</text>
+  </view>
+
+  <view class='optionInnerTool optionInnerToolImport'>
+  <view class='optionBarInnerIcon VoiceImportBtn'></view>
+  <text id='VoiceImportBtnChinese'>导入</text>
+  <text id='VoiceImportBtnEnglish'>IMPORT</text>
+  </view>
+
+  <view class='optionInnerTool optionInnerToolDelete'>
+  <view class='optionBarInnerIcon VoiceDeleteBtn'></view>
+  <text id='VoiceDeleteBtnChinese'>删除</text>
+  <text id='VoiceDeleteBtnEnglish'>DELETE</text>
+  </view>
+
+</view>
+
+</view>
+
+<!--抠像设置面板-->
+<view class="optionBar {{panelLock.KeyColorOptionLock?'':'isNotDisplay'}}">
+  <image class="optionBarIcon KeyColorBar"></image>
+  <text class="optionBarInfo">抠像设置 KEY COLOR SETTING</text>
+
+<view class='optionInnerbar'>
+
+  <view class='optionInnerTool optionInnerToolKeyColor'>
+  <view class='optionBarInnerIcon KeyColorBtn'></view>
+  <text id='KeyColorBtnChinese'>键色 :</text>
+  <text id='KeyColorBtnEnglish'>key color :</text>
+  <view class='optionBarInnerIcon selectColor'></view>
+  </view>
+  
+    <view class='optionInnerTool optionInnerToolSelectBackground'>
+  <view class='optionBarInnerIcon SelectBackgroundBtn'></view>
+  <text id='SelectBackgroundBtnChinese'>选取背景图 :</text>
+  <text id='SelectBackgroundBtnEnglish'>background image :</text>
+  <text id='SelectBackgroundPath'>C:images/files/phpto</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolIsKeyOut'>
+  <view class='optionBarInnerIcon IsKeyOutBtn'></view>
+    <view class='optionBarInnerIcon IsNotKeyOutBtn  isNotDisplay'></view>
+  <text id='IsKeyOutBtnChinese'>是否抠像 : </text>
+  <text id='IsKeyOutBtnEnglish'>Whether key out color or not :</text>
+  </view>
+
+</view>
+
+</view>
+
+
+<!--发布设置面板-->
+<view class="optionBar {{panelLock.PublishOptionLock?'':'isNotDisplay'}}">
+  <image class="optionBarIcon publishOptionBar"></image>
+  <text class="optionBarInfo">发布设置 PUBLISH SETTING</text>
+
+<view class='optionInnerbar'>
+
+    <view class='optionInnerTool optionInnerToolPlubish'>
+  <view class='optionBarInnerIcon PlubishBtn '></view>
+  <text id='PlubishBtnChinese'>发布</text>
+  <text id='PlubishBtnEnglish'>plubish</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolFlip'>
+  <view class='optionBarInnerIcon FlipBtn '></view>
+  <text id='FlipBtnChinese'>翻翻书</text>
+  <text id='FlipBtnEnglish'>flip book</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolShare'>
+  <view class='optionBarInnerIcon ShareBtn '></view>
+  <text id='ShareBtnChinese'>分享</text>
+  <text id='ShareBtnEnglish'>share</text>
+  </view>
+
+</view>
+
+
+</view>
+
+
+<!--相机控制面板-->
+<view class="optionBar {{panelLock.cameraOptionLock?'':'isNotDisplay'}}">
+  <image class="optionBarIcon cameraOptionBar"></image>
+  <text class="optionBarInfo">相机控制 CAMERA CONTROL</text>
+
+<view class='optionInnerbar'>
+
+    <view class='optionInnerTool optionInnerToolGrid'>
+  <view class='optionBarInnerIcon GridBtn '></view>
+  <text id='GridBtnChinese'>网格</text>
+  <text id='GridBtnEnglish'>Grid</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolOnion'>
+  <view class='optionBarInnerIcon OnionBtn '></view>
+  <text id='OnionBtnChinese'>洋葱皮</text>
+  <text id='OnionBtnEnglish'>ONION</text>
+  </view>
+
+</view>
+
+</view>
+
+
+<!--播放控制面板-->
+<view class="optionBar {{panelLock.PlayOptionLock?'':'isNotDisplay'}}">
+  <image class="optionBarIcon PlayBar"></image>
+  <text class="optionBarInfo">播放控制 PLAYING CONTROL</text>
+
+<view class='optionInnerbar'>
+
+    <view class='optionInnerTool optionInnerToolToStart'>
+  <view class='optionBarInnerIcon ToStartBtn'></view>
+  <text id='ToStartBtnChinese'>回头 </text>
+  <text id='ToStartBtnEnglish'>to start</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolStepBackground'>
+  <view class='optionBarInnerIcon StepBackgroundBtn'></view>
+  <text id='StepBackgroundBtnChinese'>步进 </text>
+  <text id='StepBackgroundBtnEnglishStep'>step</text>
+  <text id='StepBackgroundBtnEnglishBackground'>background</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolPlay'>
+  <view class='optionBarInnerIcon PlayBtn'></view>
+  <text id='PlayBtnChinese'>播放</text>
+  <text id='PlayBtnEnglish'>play</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolPause isNotDisplay'>
+  <view class='optionBarInnerIcon PauseBtn'></view>
+  <text id='PauseBtnChinese'>暂停</text>
+  <text id='PauseBtnEnglish'>pause</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolPlaySelected'>
+  <view class='optionBarInnerIcon PlaySelectedBtn'></view>
+  <text id='PlaySelectedBtnChinese'>播放选择</text>
+  <text id='PlaySelectedBtnEnglishPlay'>play</text>  <text id='PlaySelectedBtnEnglishSelected'>selected</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolStepForward'>
+  <view class='optionBarInnerIcon StepForwardBtn'></view>
+  <text id='StepForwardBtnChinese'>步进</text>
+  <text id='StepForwardBtnEnglishStep'>step</text>
+  <text id='StepForwardBtnEnglishForward'>forward</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolToEnd'>
+  <view class='optionBarInnerIcon ToEndBtn'></view>
+  <text id='ToEndBtnChinese'>结尾</text>
+  <text id='ToEndBtnEnglish'>to end</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolLoop'>
+  <view class='optionBarInnerIcon LoopBtn  isNotDisplay'></view>
+    <view class='optionBarInnerIcon LoopOnceBtn'></view>
+  <text id='LoopBtnChinese'>循环</text>
+  <text id='LoopBtnEnglish'>loop</text>
+  </view>
+
+    <view class='optionInnerTool optionInnerToolSound'>
+  <view class='optionBarInnerIcon SoundBtn '></view>
+    <view class='optionBarInnerIcon NoSoundBtn isNotDisplay'></view>
+  <text id='SoundBtnChinese'>静音</text>
+  <text id='SoundBtnEnglish'>sound</text>
+  </view>
+
+
+</view>
+</view>
+
+
+
+<!--操作按钮面板-->
+<view class="viewTakePhoto">
+          <view class="btnSet btn-right" bindtap='showSetOption'></view>
+          <view class="btnTimelapse btn-right" bindtap='showTimelapseOption'></view> 
+          <view class="btnSound btn-right" bindtap='showSoundOption'></view>
+          <view class="btnKeyColor btn-right" bindtap='showKeyColorOption'></view>
+          <view class="btnPublish btn-right" bindtap='showPublishOption'></view>
+          <view class="btnCamera" bindtap='showCameraOption'></view>
+          <view class="btnPlay btn-right" bindtap='showPlayOption'></view>
+</view>
+
+
+<!--录音用的组件（不显示出来）-->
+<audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop></audio>

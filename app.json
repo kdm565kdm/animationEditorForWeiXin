@@ -1,0 +1,12 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#7f7f7f",
+    "navigationBarTitleText": "轻话剧定格动画编辑器",
+    "navigationBarTextStyle":"white"
+  }
+}
