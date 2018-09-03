@@ -1,1 +1,23 @@
-{}
+{
+    "usingComponents": {
+      
+      "cameraTool":"../camera/camera",
+      "framesQueue":"../framesQueue/framesQueue",
+
+
+      "setOption": "../setOption/setOption",
+
+          "TimeLapseOption":"../ TimeLapseOption/ TimeLapseOption",
+
+          "VoiceOption":"../VoiceOption/VoiceOption",
+          "KeyColorOption": "../KeyColorOption/KeyColor",
+            "publishOption":"../publishOption/publishOption",
+
+          "cameraOption":"../cameraOption/cameraOption",
+
+          "PlayOption":"../PlayOption/PlayOption"
+
+    }
+
+    
+}

@@ -22,12 +22,6 @@ Page({
       cameraOptionLock: true,
       PlayOptionLock: false,
     },
-    info:{
-      currentFrame: '12/106',
-      currentTime: '1.0/10.0',
-      fps:'12',
-    },
-
     
   },
 
