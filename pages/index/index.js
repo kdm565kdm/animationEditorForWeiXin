@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
+const app = getApp();
 
-var test = require('test.js');
 
 
 
@@ -25,8 +25,7 @@ Page({
     
   },
 
-  onLoad: function () {
-    test.test();
+  onLoad: function () { 
   },
   onShow:function(){
     this.onLoad()
@@ -55,8 +54,31 @@ Page({
 
   showCameraOption:function(){
     this.switchPanel("cameraOptionLock");
+    this.TakePhoto();
   },
+  TakePhoto:function(){
+    const ctx = wx.createCameraContext();
+    ctx.takePhoto({
+      quality: 'high',
+      success: (res) => {
 
+
+        var src = res.tempImagePath;
+        var idValue = Math.random();
+        app.globalData.photos.push(src);
+        console.log(app.globalData);
+        // imgNum++;
+        // var location1 = { id: idValue, path: src, num: imgNum };
+        // ;
+        // arr.push(location1);
+
+        // this.setData({
+        //   array: arr,
+        // })
+
+      },
+    });
+  },
   showPlayOption:function(){
     this.switchPanel("PlayOptionLock");
   },

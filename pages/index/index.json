@@ -1,13 +1,13 @@
-{
+{   
+  "component": true,
+  
     "usingComponents": {
-      
-      "cameraTool":"../camera/camera",
-      "framesQueue":"../framesQueue/framesQueue",
+
 
 
       "setOption": "../setOption/setOption",
 
-          "TimeLapseOption":"../ TimeLapseOption/ TimeLapseOption",
+          "TimeLapseOption":"../TimeLapseOption/TimeLapseOption",
 
           "VoiceOption":"../VoiceOption/VoiceOption",
           "KeyColorOption": "../KeyColorOption/KeyColor",
